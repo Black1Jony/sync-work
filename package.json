@@ -12,6 +12,9 @@
   "dependencies": {
     "@supabase/supabase-js": "^2.99.3",
     "@tailwindcss/vite": "^4.2.2",
+    "@tsparticles/engine": "^3.9.1",
+    "@tsparticles/react": "^3.0.0",
+    "@tsparticles/slim": "^3.9.1",
     "clsx": "^2.1.1",
     "date-fns": "^4.1.0",
     "framer-motion": "^12.38.0",
@@ -21,6 +24,7 @@
     "react-router-dom": "^7.13.1",
     "sonner": "^2.0.7",
     "tailwind-merge": "^3.5.0",
+    "tsparticles-slim": "^2.12.0",
     "zustand": "^5.0.12"
   },
   "devDependencies": {

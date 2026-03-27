@@ -45,8 +45,14 @@ const BubblesParticles = () => {
           onHover: { enable: true, mode: "bubble" },
           onClick: { enable: false },
         },
+        position: {
+          value: { x: 50, y: 50 }, // центр не обязателен, но можно оставить
+        },
+        arrangement: {
+          type: "grid",
+        },
         modes: {
-          bubble: { distance: 180, size: 45, duration: 2, opacity: 1, color: "#FF8C00" },
+          bubble: { distance: 180, size: 47, duration: 2, opacity: 0.9, color: "#FF8C00" },
         },
       },
       detectRetina: true,
@@ -61,7 +67,7 @@ const BubblesParticles = () => {
         rel="stylesheet"
       />
 
-      <div className="relative w-full overflow-hidden bg-[#0a0a0a] h-[550px]">
+      <div className="relative w-full overflow-hidden bg-[#0a0a0a] h-[714px]">
 
         <div
           className="absolute top-0 left-0 right-0 h-[2px] z-10"

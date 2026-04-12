@@ -2,10 +2,11 @@ import { Menu, X, Zap, MessageSquare, Briefcase, LayoutDashboard } from 'lucide-
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link, useLocation } from 'react-router-dom';
-
+import { useNavigate } from 'react-router-dom';
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
 
   const navItems = [
     { name: 'Chats', icon: MessageSquare, path: '/chats' },
@@ -14,7 +15,15 @@ const Header = () => {
   ];
 
   const isActive = (path: string) => location.pathname === path;
-
+  const isRegist = ()=>{
+    const jwt = document.cookie.split('; ').find(row => row.startsWith('token='));
+    if (!!jwt) {
+      navigate('/');
+      return 0
+    }else{
+      navigate('/login');
+    }
+  }
   return (
     <motion.header 
       initial={{ y: -100 }}
@@ -88,6 +97,7 @@ const Header = () => {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             className="hidden md:block relative px-6 py-2.5 bg-gradient-to-r from-orange-500 to-amber-600 text-white font-semibold rounded-lg overflow-hidden group"
+            onClick={isRegist}  
           >
             <span className="relative z-10">Get Started</span>
             <motion.div

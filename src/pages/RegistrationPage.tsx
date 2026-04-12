@@ -6,21 +6,31 @@ import RegistrationCard from '../components/ui/registration/RegistrationCard';
 import RoleSelector from '../components/ui/registration/RoleSelector';
 import FormInput from '../components/ui/registration/FormInput';
 import SubmitButton from '../components/ui/registration/SubmitButton';
-
+import api from '../api/api';
+import { useNavigate } from 'react-router-dom';
 type UserRole = 'freelancer' | 'client';
 
 const RegistrationPage = () => {
   const [role, setRole] = useState<UserRole>('freelancer');
   const [formData, setFormData] = useState({
-    username: '',
+    name: '',
     email: '',
     password: '',
   });
-
-  const handleSubmit = (e: React.FormEvent) => {
+  const navigate = useNavigate();
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Registration data:', { ...formData, role });
-  };
+    try {
+      const resp = await api.post('/auth/login', { ...formData, role });
+
+      if (resp.status === 201) {
+        document.cookie = `token=${resp.data.token}; path=/; max-age=31536000`; // Сохранение токена в cookie
+        navigate('/');
+      }
+    } catch (error) {
+      console.error('Registration failed:', error);
+    }
+  }
 
   const itemVariants = {
     hidden: { opacity: 0, y: 20 },
@@ -52,11 +62,11 @@ const RegistrationPage = () => {
         {/* Form */}
         <form onSubmit={handleSubmit} className="space-y-5">
           <FormInput
-            label="Username"
+            label="Name"
             type="text"
-            value={formData.username}
-            onChange={(value) => setFormData(prev => ({ ...prev, username: value }))}
-            placeholder="Enter your username"
+            value={formData.name}
+            onChange={(value) => setFormData(prev => ({ ...prev, name: value }))}
+            placeholder="Enter your name"
             icon={User}
             required
           />

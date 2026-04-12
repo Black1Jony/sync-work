@@ -32,7 +32,6 @@ const SubmitButton = ({ role }: SubmitButtonProps) => {
           }}
         />
 
-        {/* Pulse Effect */}
         <motion.div
           className="absolute inset-0 bg-orange-400/50 rounded-xl"
           animate={{

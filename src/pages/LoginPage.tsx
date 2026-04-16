@@ -1,24 +1,45 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Mail, Lock } from 'lucide-react';
 import BackgroundEffects from '../components/ui/registration/BackgroundEffects';
 import RegistrationCard from '../components/ui/registration/RegistrationCard';
 import FormInput from '../components/ui/registration/FormInput';
 import LoginButton from '../components/ui/login/LoginButton';
-
+import { toast } from 'sonner';
+import api from '../api/api';
+import { useNavigate } from 'react-router-dom';
+interface ApiError {
+  error: string;
+  message: string;
+}
 const LoginPage = () => {
   const [formData, setFormData] = useState({
     email: '',
     password: '',
   });
+  const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
+  useEffect(() => {
+    const token = document.cookie
+      .split('; ')
+      .find(row => row.startsWith('token='))
+      ?.split('=')[1];
 
+    if (token) {
+      navigate('/');
+    }
+  }, [navigate]);
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
-
-  
-
+    try {
+      const resp = await api.post('/auth/login', formData);
+      toast.success('Logged in successfully');
+      document.cookie = `token=${resp.data.token}; path=/ maxage=31536000`;
+      navigate('/');
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : 'An error occurred during login');
+    }
     setIsLoading(false);
   };
 
@@ -46,7 +67,7 @@ const LoginPage = () => {
           </p>
         </motion.div>
 
-        {/* Form */}
+        
         <form onSubmit={handleSubmit} className="space-y-5">
           <FormInput
             label="Email"

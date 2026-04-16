@@ -25,7 +25,6 @@ const SubmitButton = ({ role, isLoading = false }: SubmitButtonProps) => {
         whileHover={!isLoading ? { scale: 1.02 } : {}}
         whileTap={!isLoading ? { scale: 0.98 } : {}}
       >
-        {/* Shine Effect */}
         {!isLoading && (
           <motion.div
             className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent"

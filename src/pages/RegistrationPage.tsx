@@ -29,7 +29,6 @@ const RegistrationPage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Check if user is already logged in
     const token = document.cookie
       .split('; ')
       .find(row => row.startsWith('token='))
@@ -45,13 +44,13 @@ const RegistrationPage = () => {
     setIsLoading(true);
 
     try {
-      const resp = await api.post('/auth/register', { ...formData, role });
+      const resp = await api.post('/auth/login', { ...formData, role });
 
       if (resp.status === 201) {
         document.cookie = `token=${resp.data.token}; path=/; max-age=31536000`;
         toast.success('Registration successful! Welcome aboard!');
         navigate('/');
-      }
+      } 
     } catch (error) {
       if (axios.isAxiosError(error) && error.response) {
         const apiError = error.response.data as ApiError;

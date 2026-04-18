@@ -28,7 +28,7 @@ const techIcons: Record<string, any> = {
   MongoDB: Database,
   Mapbox: Cloud,
   Rust: Cpu,
-  'Binance API': Zap,
+  'Binance API': Zap, 
   TradingView: Palette
 }
 
@@ -61,10 +61,10 @@ const OrderCard = ({ order, index }: OrderCardProps) => {
         <div className="flex items-start justify-between mb-4">
           <div className="flex items-center gap-2 text-gray-400 text-sm">
             <User size={16} />
-            <span className="font-medium">{order.clientName}</span>
+            <span className="font-medium">{order.profiles.name}</span>
           </div>
           <div className="text-orange-400 font-bold text-lg tracking-tight">
-            ${order.price.toLocaleString()}
+            ${order.budget.toLocaleString()}
           </div>
         </div>
 

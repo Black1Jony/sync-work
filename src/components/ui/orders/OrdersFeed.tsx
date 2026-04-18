@@ -2,14 +2,29 @@ import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import OrderCard from './OrderCard'
 import OrderSkeleton from './OrderSkeleton'
-import { ordersData } from '../../../data/ordersData'
+import type { Order } from '../../../types/orderTypes'
+import api from "../../../api/api"
 
 const OrdersFeed = () => {
   const [loading, setLoading] = useState(true)
+  const [orders, setOrders] = useState<Order[]>([])
 
   useEffect(() => {
-    const timer = setTimeout(() => setLoading(false), 2000)
-    return () => clearTimeout(timer)
+    const getOrders = async () => {
+      try {
+        setLoading(true)
+        const response = await api.get('/tasks/getTasks')
+        setOrders(response.data)
+        console.log(response.data);
+        
+      } catch (error) {
+        console.error('Error fetching orders:', error)
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    getOrders()
   }, [])
 
   return (
@@ -33,7 +48,7 @@ const OrdersFeed = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {loading
             ? Array.from({ length: 6 }).map((_, i) => <OrderSkeleton key={i} />)
-            : ordersData.map((order, i) => <OrderCard key={order.id} order={order} index={i} />)}
+            : orders.map((order, i) => <OrderCard key={order.id} order={order} index={i} />)}
         </div>
       </div>
     </section>

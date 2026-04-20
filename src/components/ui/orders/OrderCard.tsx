@@ -68,9 +68,13 @@ const OrderCard = ({ order, index }: OrderCardProps) => {
           </div>
         </div>
 
-        <h3 className="text-white text-xl font-semibold mb-6 leading-tight tracking-tight">
+        <h3 className="text-white text-xl font-semibold mb-3 leading-tight tracking-tight">
           {order.title}
         </h3>
+
+        <p className="text-gray-400 text-sm mb-6 line-clamp-2 leading-relaxed">
+          {order.description}
+        </p>
 
         <div className="flex flex-wrap gap-2">
           {order.stack.map((tech) => {

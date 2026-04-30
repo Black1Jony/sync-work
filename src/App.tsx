@@ -7,6 +7,7 @@ import OrdersPage from './pages/OrdersPage'
 import OrderPage from './pages/OrderPage.js'
 import ProfilePage from './pages/ProfilePage'
 import ChatsPage from './pages/ChatsPage'
+import ChatPage from './pages/ChatPage'
 
 import { Route, Routes} from 'react-router-dom'
 import { Toaster } from 'sonner'
@@ -22,6 +23,7 @@ function App() {
     <Route path='/order/:id' element={<OrderPage/>}/>
     <Route path='/profile' element={<ProfilePage/>}/>
     <Route path='/chats' element={<ChatsPage/>}/>
+    <Route path='/chat/:id' element={<ChatPage/>}/>
   </Routes>
   </>
 }

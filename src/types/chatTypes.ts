@@ -15,3 +15,19 @@ export interface Chat {
 export interface ChatsResponse {
   chats: Chat[];
 }
+
+export interface Message {
+  id: string;
+  chat_id: string;
+  message: string;
+  sender_id: string;
+  created_at: string;
+  profiles?: {
+    name: string;
+    url: string;
+  };
+}
+
+export interface MessagesResponse {
+  messages: Message[];
+}

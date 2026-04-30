@@ -74,6 +74,7 @@ const ProfilePage = () => {
             profile={profile}
             proposalsCount={proposals.length}
             tasksCount={tasks.length}
+            onAvatarUpdate={fetchProfile}
           />
 
           <StatsCards proposals={proposals} />
